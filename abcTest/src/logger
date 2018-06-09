@@ -1,0 +1,113 @@
+log4j.rootLogger=DEBUG,CONSOLE,A1,R,FILE1,FILE2,FILE3
+log4j.addivity.org.apache=true 
+
+# 应用于控制台 
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender 
+log4j.appender.CONSOLE.Threshold=INFO 
+log4j.appender.CONSOLE.Target=System.out 
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout 
+log4j.appender.CONSOLE.layout.ConversionPattern=[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n 
+
+# 每天新建日志 
+log4j.appender.A1=org.apache.log4j.DailyRollingFileAppender 
+log4j.appender.A1.File=C\:/log4j.log 
+log4j.appender.A1.Threshold=DEBUG 
+log4j.appender.A1.DatePattern='.'yyyy-MM-dd 
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout 
+log4j.appender.A1.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}\:%L \: %m%n 
+
+
+log4j.appender.R=org.apache.log4j.DailyRollingFileAppender
+#每天输出一个日志文件
+log4j.appender.R.DatePattern='_'yyyy-MM-dd'.log'
+#昨天的日志文件名Sendmsg+“昨天日期”.log
+log4j.appender.R.File=C\:/log4j/debusssssg.log 
+#日志文件的路径，${catalina.home} 即Tomcat下
+log4j.appender.R.layout=org.apache.log4j.HTMLLayout 
+#日志文件输出格式 
+log4j.appender.R.layout.ConversionPattern=[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n 
+
+
+#应用于文件 (调试文件)
+log4j.appender.FILE1=org.apache.log4j.FileAppender 
+log4j.appender.FILE1.File=C\:/log4j/debug.log 
+log4j.appender.FILE1.Threshold=DEBUG
+log4j.appender.FILE1.Append=true
+log4j.appender.FILE1.layout=org.apache.log4j.PatternLayout 
+log4j.appender.FILE1.layout.ConversionPattern=[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n 
+
+
+#应用于文件 (INFO文件)
+log4j.appender.FILE2=org.apache.log4j.FileAppender 
+log4j.appender.FILE2.File=C\:/log4j/INFO.log 
+log4j.appender.FILE2.Threshold=INFO
+log4j.appender.FILE2.Append=true
+log4j.appender.FILE2.layout=org.apache.log4j.PatternLayout 
+log4j.appender.FILE2.layout.ConversionPattern=[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n 
+
+#应用于文件 (错误文件)
+log4j.appender.FILE3=org.apache.log4j.FileAppender 
+log4j.appender.FILE3.File=C\:/log4j/error.log 
+log4j.appender.FILE3.Threshold=ERROR
+log4j.appender.FILE3.Append=false 
+log4j.appender.FILE3.layout=org.apache.log4j.PatternLayout 
+log4j.appender.FILE3.layout.ConversionPattern=[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n
+
+
+
+我们可以把每一个log4j.appender.Xx 都看成是一个输出  = 右边是对应的通过什么方式来输出，如
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.FILE3=org.apache.log4j.FileAppender  
+等
+
+我们可以把每一个log4j.appender.Xx.File = 保存文件的地址和文件名，如：
+log4j.appender.FILE1.File=C\:/log4j/debug.log 
+
+我们可以把每一个log4j.appender.Xx.Threshold = 这是什么级别（级别概念请查看下面的日志级别），如：
+log4j.appender.FILE3.Threshold=ERROR
+
+Logger被指定为实体，由一个String类的名字识别。Logger的名字是大小写敏感的，且名字之间具有继承关系，子名用父名作为前缀，用点“.”分隔，例如x.y是x.y.z的父亲。
+root Logger(根Logger)是所有Logger的祖先，它有如下属性：
+1.它总是存在的。
+2.它不可以通过名字获得。
+
+每个Logger都被了一个日志级别（log level），用来控制日志信息的输出。日志级别从高到低分为：
+A：off         最高等级，用于关闭所有日志记录。
+B：fatal       指出每个严重的错误事件将会导致应用程序的退出。
+C：error      指出虽然发生错误事件，但仍然不影响系统的继续运行。
+D：warm     表明会出现潜在的错误情形。
+E：info         一般和在粗粒度级别上，强调应用程序的运行全程。
+F：debug     一般用于细粒度级别上，对调试应用程序非常有帮助。
+G：all           最低等级，用于打开所有日志记录。
+
+C）输出端Appender
+Appender用来指定日志信息输出到哪个地方，可以同时指定多个输出目的地。Log4j允许将信息输出到许多不同的输出设备中，一个log信息输出目的地就叫做一个Appender。
+每个Logger都可以拥有一个或多个Appender，每个Appender表示一个日志的输出目的地。可以使用Logger.addAppender(Appender app)为Logger增加一个Appender，也可以使用Logger.removeAppender(Appender app)为Logger删除一个Appender。
+以下为Log4j几种常用的输出目的地。
+a：org.apache.log4j.ConsoleAppender：将日志信息输出到控制台。
+b：org.apache.log4j.FileAppender：将日志信息输出到一个文件。
+c：org.apache.log4j.DailyRollingFileAppender：将日志信息输出到一个日志文件，并且每天输出到一个新的日志文件。
+d：org.apache.log4j.RollingFileAppender：将日志信息输出到一个日志文件，并且指定文件的尺寸，当文件大小达到指定尺寸时，会自动把文件改名，同时产生一个新的文件。
+e：org.apache.log4j.WriteAppender：将日志信息以流格式发送到任意指定地方。
+f:：org.apache.log4j.jdbc.JDBCAppender：通过JDBC把日志信息输出到数据库中。
+
+
+最后，创建一个Log类，将下面的代码复制进去运行即可查看到在C盘下会生成日志文件
+import org.apache.log4j.Logger;  
+public class Log {
+     private static Logger logger = Logger.getLogger(Log.class);  
+     public static void main(String[] args) {  
+      //  记录 debug 级别的信息   
+       logger.debug("This is debug message.");  
+       //  记录 info 级别的信息   
+       logger.info("This is info message.");  
+       //  记录 error 级别的信息   
+       logger.error("This is error message.");  
+   }  
+}
+
+
+
+
+
+
