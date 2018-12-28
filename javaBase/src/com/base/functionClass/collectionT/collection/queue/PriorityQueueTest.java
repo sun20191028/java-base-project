@@ -9,6 +9,9 @@ public class PriorityQueueTest {
 		Queue pq = new PriorityQueue();
 		pq.offer(6);
 		pq.offer(-3);
+		pq.offer(48);
+		pq.offer(38);
+		pq.offer(58);
 		pq.offer(20);
 		pq.offer(18);
 		

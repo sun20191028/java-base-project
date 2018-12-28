@@ -21,8 +21,9 @@ public class TreeSetTest {
 //			System.out.println(str);
 //			
 //		}
+		
 		TreeSet set = new TreeSet();
-//		set.comparator();
+		set.comparator();
 		set.add(10);
 		set.add(5);
 		set.add(8);
@@ -36,6 +37,19 @@ public class TreeSetTest {
 			
 		}
 		
+		
+		TreeSet<Entity> tree = new TreeSet<Entity>(new ComparableExamp());
+		tree.add(new Entity(1,9));
+		tree.add(new Entity(3,6));
+		tree.add(new Entity(5,1));
+		tree.add(new Entity(9,20));
+		
+		Iterator<Entity> ite = tree.iterator();
+		while (ite.hasNext()) {
+			Entity entity = ite.next();
+			System.out.println(entity);
+			
+		}
 	}
 	
 }

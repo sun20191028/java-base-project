@@ -1,0 +1,59 @@
+Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一，大家可以查看RFC2045~RFC2049，上面有MIME的详细规范。Base64编码可用于在HTTP环境下传递较长的标识信息。例如，在Java Persistence系统hibernate中，就采用了Base64来将一个较长的唯一标识符(一般为128-bit的UUID)编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。在其他应用程序中，也常常需要把二进制数据编码为适合放在URL(包括隐藏表单域)中的形式。此时，采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到，算是起到一个加密的作用。
+       Base64使用A--Z,a--z,0--9,+,/ 这64个字符，编码原理是将3个字节转换成4个字节( (3 X 8) = 24 = (4 X 6) )先读入3个字节,每读一个字节,左移8位,再右移四次,每次6位,这样就有4个字节了，这样还不能保证得到的字符都是可见字符，为了达到此目的，Base64制定了一个编码表，进行统一的转换。码表的大小为2^6=64，这也是Base64名称的由来。 当剩下的字符数量不足3个字节时，则应使用0进行填充，相应的，输出字符则使用'='占位，因此编码后输出的文本末尾可能会出现1至2个'='。解码原理是将4个字节转换成3个字节.先读入4个6位(用或运算),每次左移6位,再右移3次,每次8位，这样就还原了。
+       Base64编码表
+      Value Encoding  Value Encoding  Value Encoding  Value Encoding
+           0 A            17 R            34 i            51 z
+           1 B            18 S            35 j            52 0
+           2 C            19 T            36 k            53 1
+           3 D            20 U            37 l            54 2
+           4 E            21 V            38 m           55 3
+           5 F            22 W           39 n           56 4
+           6 G            23 X            40 o            57 5
+           7 H            24 Y             41 p            58 6
+           8 I            25 Z             42 q            59 7
+           9 J            26 a             43 r             60 8
+          10 K            27 b            44 s            61 9
+          11 L            28 c            45 t             62 +
+          12 M            29 d           46 u            63 /
+          13 N            30 e           47 v
+          14 O            31 f            48 w         (pad) =
+          15 P            32 g           49 x
+          16 Q            33 h           50 y
+        
+ 
+       Base64是一种很常见的编码规范，其作用是将二进制序列转换为人类可读的ASCII字符序列，常用在需用通过文本协议（比如HTTP和SMTP）来传输二进制数据的情况下。Base64并不是一种用于安全领域的加密解密算法（这类算法有DES等），尽管我们有时也听到使用Base64来加密解密的说法，但这里所说的加密与解密实际是指编码（encode）和解码（decode）的过程，其变换是非常简单的，仅仅能够避免信息被直接识别。
+       Base64编解码算法都很简单，网上有很多源码，这里就不介绍了。
+       那Java中如何使用这种编码呢？其实JDK里边相应的类和方法，但是API里是看不到的，网上都说是编写JDK的内部人员专用的，java中可以直接使用，但不提倡大家用，可以看看这个http://wenda.haosou.com/q/1378566517069409。
+       不过，对此有开源的jar包， javabase64-1.2.jar，下载地址。引入这个jar包后，几行代码就可以实现编码与解码了：
+示例代码:
+ 
+String类型 进行Base64编码
+String encoded = Base64.encode("Hello, world!");
+    
+String类型 进行Base64解码
+String decoded = Base64.decode(encoded);
+    
+指定字符编码方式
+String encoded = Base64.encode("Hello, world!", "UTF-8");    
+String decoded = Base64.decode(encoded, "UTF-8");   
+对文件进行编码:
+如果文件比较小，可以通过以下方式，直接读取到内存中进行编码处理
+byte[] source = ...; // load your data here
+byte[] encoded = Base64.encode(source);
+byte[] decoded = Base64.decode(encoded);
+ 
+如果大件比较大，则建议使用stream:
+代码示例Base64编码：
+InputStream inputStream = new FileInputStream("source.jpg");
+OutputStream outputStream = new FileOutputStream("encoded.b64");
+Base64.encode(inputStream, outputStream);
+outputStream.close();
+inputStream.close();
+代码示例Base64解码：
+InputStream inputStream = new FileInputStream("encoded.b64");
+OutputStream outputStream = new FileOutputStream("decoded.jpg");
+Base64.decode(inputStream, outputStream);
+outputStream.close();
+inputStream.close();
+ 
+base64编码解码,java中base64使用,base64编码介绍与原理,base64加密与解密

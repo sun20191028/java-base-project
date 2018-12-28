@@ -20,7 +20,7 @@ public class App {
 			Thread.currentThread().sleep(2);
 		}
 		try {
-			System.out.println(task.get()); //这里会阻塞 主线程，知道FutureTask返回 call的返回值，才会继续往下执行
+			System.out.println("task.get()" + task.get()); //这里会阻塞 主线程，知道FutureTask返回 call的返回值，才会继续往下执行
 											//call中报错也是在此处抛出
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

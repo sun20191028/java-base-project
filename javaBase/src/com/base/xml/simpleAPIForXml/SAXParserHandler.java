@@ -9,9 +9,12 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * 利用面向接口编程， 此Handler只是把xml中的数据，一个一个解析出来，具体如何使用，由实现的Handler自己决定，
  * 此例子先展现一种原生的 分割读取功能,
- * 	并非真正的一行一行的读取，而是一段一段的解析
- * 	先解析  <bookstore>，再用characters（）解析之后到<name>之间的空格，再startElement解析<name>
- * 查看characters方法的char数组会发现，其实已经把整个xml文档读进内存了
+ * 	并非真正的一行一行的读取，       而是一段一段的解析 ,利用正则 得到 < >  作为 startElement  然后>  < 之间的 为  characters ，</ > 为endElement
+ * 
+ * 查看characters方法的char数组会发现，其实已经把整个xml文档读进内存了，
+ 
+ 
+ 
 [
 , 
 , <, b, o, o, k, s, t, o, r, e, >, 
@@ -63,7 +66,8 @@ public class SAXParserHandler extends DefaultHandler {
 	public void startDocument() throws SAXException {
 		// TODO Auto-generated method stub
 		super.startDocument();
-		System.out.println("SAX解析开始");
+		System.out.println("startDocument");
+		
 	}
 
 	/**
@@ -73,7 +77,7 @@ public class SAXParserHandler extends DefaultHandler {
 	public void endDocument() throws SAXException {
 		// TODO Auto-generated method stub
 		super.endDocument();
-		System.out.println("SAX解析结束");
+		System.out.println("endDocument");
 	}
 
 	/**

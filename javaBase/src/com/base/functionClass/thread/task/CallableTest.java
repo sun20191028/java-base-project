@@ -12,10 +12,10 @@ public class CallableTest implements Callable<Integer>{
 		int i = 0;
 		for ( i =  0 ; i < 100; i++) {
 			System.out.println(Thread.currentThread().getName() + " ：  " + i);
-			Thread.sleep(1);
-			if (i == 80) {
-				throw new Exception("test throw exception");
-			}
+			Thread.sleep(100);
+//			if (i == 80) {
+//				throw new Exception("test throw exception");
+//			}
 			
 		}
 		return i;
