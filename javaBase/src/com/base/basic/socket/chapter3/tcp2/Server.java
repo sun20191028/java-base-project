@@ -15,7 +15,10 @@ public class Server extends Thread{
 		this.demo = new ServerDemo(port);
 	}
 	
-	
+	/**
+	 * 对于长连接 阻塞型的 io设计，不能用线程池，因为当线程阻塞时，可能会导致其他连接传送的数据不能即使传输。
+	 * tomcat 用的是短连接，
+	 */
 	public void run(){
 		try {
 			Socket socket = demo.serverSocket.accept();

@@ -1,4 +1,4 @@
-package com.base.basic.socket.chapter5.udp.demo1;
+package com.base.basic.socket.chapter6.udp.demo1;
 
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;

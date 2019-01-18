@@ -7,6 +7,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.alibaba.fastjson.JSON;
+
 public class Tool {  
     public static byte[] read(Socket socket) throws IOException {  
         BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());  
@@ -29,13 +31,13 @@ public class Tool {
         bis.write(content);  
         bis.flush();  
     }  
-    //int 转字节数组  
+    //int 转字节数组 
     public static byte[] intToByteArray1(int i) {  
         byte[] result = new byte[4];  
         result[0] = (byte)((i >> 24) & 0xFF);  
         result[1] = (byte)((i >> 16) & 0xFF);  
         result[2] = (byte)((i >> 8) & 0xFF);  
-        result[3] = (byte)(i & 0xFF);  
+        result[3] = (byte)(i & 0xFF);// 8位保存  两个 16进制树
         return result;  
     }  
   
@@ -56,6 +58,17 @@ public class Tool {
             intValue +=(b[i] & 0xFF)<<(8*(3-i));  
         }  
         return intValue;  
-    }  
+    }
+    
+    
+    public static void main(String[] args) throws Exception {
+		byte[] by1 = intToByteArray1(156);
+		byte[] by2 = intToByteArray2(156);
+		
+		System.out.println(JSON.toJSONString(by1));
+		System.out.println(JSON.toJSONString(by2));
+		
+		System.out.println(byteArrayToInt(by1));
+	}
 }  
 

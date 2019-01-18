@@ -42,7 +42,7 @@ import java.util.*;
  * @author liangpro
  *
  */
-public class ThreadPoolExecutor extends AbstractExecutorService {
+public class ThreadPoolExecutorSource extends AbstractExecutorService {
  
     private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));//线程安全的原子数据操作
     private static final int COUNT_BITS = Integer.SIZE - 3;//29
@@ -735,7 +735,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
      *         {@code maximumPoolSize < corePoolSize}
      * @throws NullPointerException if {@code workQueue} is null
      */
-    public ThreadPoolExecutor(int corePoolSize,
+    public ThreadPoolExecutorSource(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
@@ -769,7 +769,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
      * @throws NullPointerException if {@code workQueue}
      *         or {@code threadFactory} is null
      */
-    public ThreadPoolExecutor(int corePoolSize,
+    public ThreadPoolExecutorSource(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
@@ -804,7 +804,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
      * @throws NullPointerException if {@code workQueue}
      *         or {@code handler} is null
      */
-    public ThreadPoolExecutor(int corePoolSize,
+    public ThreadPoolExecutorSource(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
@@ -841,7 +841,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
      * @throws NullPointerException if {@code workQueue}
      *         or {@code threadFactory} or {@code handler} is null
      */
-    public ThreadPoolExecutor(int corePoolSize,
+    public ThreadPoolExecutorSource(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
@@ -1590,7 +1590,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
          * @param e the executor attempting to execute this task
          * @throws RejectedExecutionException always.
          */
-        public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
+        public void rejectedExecution(Runnable r, ThreadPoolExecutorSource e) {
             throw new RejectedExecutionException("Task " + r.toString() +
                                                  " rejected from " +
                                                  e.toString());
