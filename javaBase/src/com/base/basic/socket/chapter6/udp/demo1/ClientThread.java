@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
-public class ClientThread extends Thread{
+public class ClientThread implements Callable{
 
 	private int port;
-	
 	public ClientThread(int port){
 		this.port = port;
 	}
@@ -28,11 +29,18 @@ public class ClientThread extends Thread{
 					byte[] msg = p.getData();
 					System.out.println(Thread.currentThread().getName() +" 接收到的广播的数据 : "+new String(msg));
 				}
-				
+				System.out.println("...");
 			}while(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}      
+	}
+
+	@Override
+	public Object call() throws Exception {
+		// TODO Auto-generated method stub
+		run();
+		return null;
 	}
 }

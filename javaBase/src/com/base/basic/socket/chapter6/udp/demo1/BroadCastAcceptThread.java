@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BroadCastAcceptThread extends Thread{
-	public static Map adds = new HashMap<String, Integer>();
+	public static volatile Map adds = new HashMap<String, Integer>();
 	public static String token = "secretKey";
 	
 	private DatagramSocket rec;

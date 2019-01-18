@@ -37,8 +37,8 @@ public class ClientThread extends Thread{
 					try {
 						while(true) {
 							Map<String, String> req = new HashMap<String, String>();
-							req.put("name", socketChannel.socket().getPort()+"");
-							req.put("msg", "this is port : " + socketChannel.socket().getPort() + " sends message!");
+							req.put("name", socketChannel.getLocalAddress().toString()+"");
+							req.put("msg", "this is client sends message!");
 							Tool.writeChannel(socketChannel, charset, JSON.toJSONString(req));
 							sleep(3000);
 						}
