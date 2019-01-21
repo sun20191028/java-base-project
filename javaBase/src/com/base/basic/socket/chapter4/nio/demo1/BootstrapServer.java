@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import com.base.basic.socket.chapter4.nio.demo1.listener.ServerListener;
 import com.base.basic.socket.chapter4.nio.demo1.server.ConsumerMsgThread;
-import com.base.basic.socket.chapter4.nio.demo1.server.ServerAccept;
+import com.base.basic.socket.chapter4.nio.demo1.server.ServerAcceptThread;
 import com.base.basic.socket.chapter4.nio.demo1.server.ServerReadWrite;
 
 public class BootstrapServer {
 
 	public static void main(String[] args) throws IOException {
 		
-		ServerAccept accept = new ServerAccept();
+		ServerAcceptThread accept = new ServerAcceptThread();
 		accept.init();
 		accept.start();
 		

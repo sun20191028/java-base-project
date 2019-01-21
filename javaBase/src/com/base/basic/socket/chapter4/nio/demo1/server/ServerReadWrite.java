@@ -50,7 +50,7 @@ public class ServerReadWrite extends Thread{
 						it.remove();
 					}
 				}
-				if(GlobalVariable.isNeedWait.get()){
+				if(GlobalVariable.isNeedWait.get()){//注意，通道非可读状态的时候，就是可写状态，所以注意控制循环，不要让循环太快
 					sleep(1000);
 				}
 				GlobalVariable.isNeedWait.set(true);
