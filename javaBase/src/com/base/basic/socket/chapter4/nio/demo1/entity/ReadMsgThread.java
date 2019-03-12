@@ -2,6 +2,7 @@ package com.base.basic.socket.chapter4.nio.demo1.entity;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.UUID;
 
@@ -20,8 +21,9 @@ public class ReadMsgThread implements Runnable{
 	
 	@Override
 	public void run() {
+		SocketChannel channel = null;
 		try {
-			SocketChannel channel = (SocketChannel)sk.channel();
+			channel = (SocketChannel)sk.channel();
 			String msg = Tool.readChannel(channel, GlobalVariable.charset);
 			System.out.println("server read : " + msg);
 			sk.interestOps(SelectionKey.OP_READ|SelectionKey.OP_WRITE);//读完数据之后，需要将SelectionKey 设置成准备监听下一次读取
@@ -34,6 +36,13 @@ public class ReadMsgThread implements Runnable{
 			GlobalVariable.isNeedWait.set(false);;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("ReadMsgThread");
+			try {
+				channel.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		

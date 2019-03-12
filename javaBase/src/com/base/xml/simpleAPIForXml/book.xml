@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <bookstore>
-    <book id="1">
+    <book uri="testUri" localName="testLocalName" id="1">
         啊啊<name>冰与火之歌</name>
         <author>乔治马丁</author>
         <year>2014</year>
@@ -13,3 +14,13 @@
         <language>English</language>
     </book>    
 </bookstore>
+
+
+
+<!-- <web-app version="2.5"   
+    xmlns:csdn="http://java.sun.com/xml/ns/javaee"   
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   
+    	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="test">  
+  <csdn:display-name></csdn:display-name>     
+</web-app>   -->

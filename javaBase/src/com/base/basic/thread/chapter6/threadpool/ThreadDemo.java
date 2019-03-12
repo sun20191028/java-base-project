@@ -1,4 +1,4 @@
-package com.base.functionClass.thread.threadPool;
+package com.base.basic.thread.chapter6.threadpool;
 
 
 public class ThreadDemo implements Runnable{

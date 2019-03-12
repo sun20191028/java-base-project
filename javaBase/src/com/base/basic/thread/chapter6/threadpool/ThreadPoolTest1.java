@@ -1,4 +1,4 @@
-package com.base.functionClass.thread.threadPool;
+package com.base.basic.thread.chapter6.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

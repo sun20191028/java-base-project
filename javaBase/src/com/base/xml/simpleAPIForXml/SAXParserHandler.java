@@ -7,13 +7,18 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * 利用面向接口编程， 此Handler只是把xml中的数据，一个一个解析出来，具体如何使用，由实现的Handler自己决定，
+ * saxParse 已经将xml 读入内存中。通过正则表达式，从上往下，一段一段切分字符串，再分别交由 startDocument、startElement、endElement、endDocument 处理
+ * 利用面向接口编程，将xml中的数据分为五类，然后分别调用各自的方法去处理各自的数据，至于具体如何使用这些数据，由实现的Handler自己决定，
  * 此例子先展现一种原生的 分割读取功能,
  * 	并非真正的一行一行的读取，       而是一段一段的解析 ,利用正则 得到 < >  作为 startElement  然后>  < 之间的 为  characters ，</ > 为endElement
  * 
- * 查看characters方法的char数组会发现，其实已经把整个xml文档读进内存了，
- 
- 
+ * 查看characters方法的char数组会发现，其实已经把整个xml文档读进内存了，只是解析的时候是一行一行的。
+ 而且解析是 startDocument 
+ 			<bookstore>【startElement】 
+ 			“空”【characters】 
+ 			<book uri="testUri" localName="testLocalName" id="1">【startElement】
+ 			“啊啊”【characters】 
+ 			.....这样的解析顺序
  
 [
 , 
@@ -42,7 +47,8 @@ import org.xml.sax.helpers.DefaultHandler;
 ,  ,  ,  ,  ,  ,  ,  ,  , <, l, a, n, g, u, a, g, e, >, E, n, g, l, i, s, h, <, /, l, a, n, g, u, a, g, e, >, 
 , 
 ,  ,  ,  ,  , <, /, b, o, o, k, >,  ,  ,  ,  , 
-注意并未截取到数组结束符  ]
+
+...... ]
  * 
  * @author liang
  * 
@@ -89,6 +95,11 @@ public class SAXParserHandler extends DefaultHandler {
 		System.out.println("startElement");
 		// 调用DefaultHandler类的startElement方法
 		super.startElement(uri, localName, qName, attributes);
+		System.out.println(uri + "," + localName + "," + qName);
+		int num = attributes.getLength();
+		for (int i = 0; i < num; i++) {
+			System.out.println("---属性 【" + attributes.getQName(i) + "】【" + attributes.getValue(i));
+		}
 //		if (qName.equals("book")) {
 //			bookIndex++;
 //			// 创建一个book对象

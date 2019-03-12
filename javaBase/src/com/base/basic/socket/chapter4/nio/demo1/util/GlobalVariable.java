@@ -6,6 +6,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -25,7 +26,7 @@ public class GlobalVariable {
 	public static volatile AtomicBoolean isNeedWait = new AtomicBoolean(true);// 如果读到，或者写了数据，则不需要休眠，因为通道不是可读状态，都是可写状态，所以需要减速控制
 	
 	public static ConcurrentHashMap<Integer, SocketChannelWrapper> mapSocketChannel = new ConcurrentHashMap<Integer, SocketChannelWrapper>();
-	public static ConcurrentLinkedQueue<SocketChannel> socketChannelQueue = new ConcurrentLinkedQueue<SocketChannel>();
+//	public static ConcurrentLinkedQueue<SocketChannel> socketChannelQueue = new ConcurrentLinkedQueue<SocketChannel>();
 	
 	public static ConcurrentLinkedQueue<DutyEntity> dutys = new ConcurrentLinkedQueue<DutyEntity>();
 	
@@ -33,8 +34,9 @@ public class GlobalVariable {
 	// 使用自定义的线程池。
 	private static BlockRejectedExecutionHandler handler = new BlockRejectedExecutionHandler();
 	public static ThreadPoolExecutor threadPoolRead = new ThreadPoolExecutor(5, 10, 100, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(100),Executors.defaultThreadFactory(), handler);
-	public static ThreadPoolExecutor threadPoolWrite = new ThreadPoolExecutor(5, 10, 100, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(100),Executors.defaultThreadFactory(), handler);
+	public static ThreadPoolExecutor threadPoolWrite = new ThreadPoolExecutor(5, 10, 100, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(100),Executors.defaultThreadFactory());
 	
+//	ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 	
 	
 	static{

@@ -28,7 +28,13 @@ public class WriteMsgThread implements Runnable {
 				sk.interestOps(SelectionKey.OP_READ|SelectionKey.OP_WRITE);
 				GlobalVariable.isNeedWait.set(false);;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("WriteMsgThread");
+				try {
+					sc.close();//对于客户端，非正常关闭的处理办法
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 		}

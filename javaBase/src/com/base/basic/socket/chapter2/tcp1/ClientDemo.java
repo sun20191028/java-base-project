@@ -21,7 +21,7 @@ public class ClientDemo {
 		out.write(stb.toString().getBytes());
 		out.flush();
 		out.close();
-		socket.shutdownOutput();
+//		socket.shutdownOutput();//
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException {

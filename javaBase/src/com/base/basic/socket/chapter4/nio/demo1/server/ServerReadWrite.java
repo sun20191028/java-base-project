@@ -35,13 +35,13 @@ public class ServerReadWrite extends Thread{
 //					}
 //				}
 				
+//				SocketChannel sc = null;
+//				while((sc=GlobalVariable.socketChannelQueue.poll()) !=null){
+//					sc.register(rwSelector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);
+//				}
 				int num = rwSelector.select(2000);
 				//但是注册selector 必须在select()方法之后，因为select方法会对 publicKeys加锁，
 				//publicKeys 必须加锁才能 新增/删除 键集，publicKeys是set集合，是线程不安全的。必须加锁才能修改。所以注册需要在加锁之后
-				SocketChannel sc = null;
-				while((sc=GlobalVariable.socketChannelQueue.poll()) !=null){
-					sc.register(rwSelector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);
-				}
 				
 				if(num > 0) {
 					Iterator<SelectionKey> it = rwSelector.selectedKeys().iterator();
@@ -56,7 +56,7 @@ public class ServerReadWrite extends Thread{
 				GlobalVariable.isNeedWait.set(true);
 			}
 		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
+			System.out.println("ServerReadWrite");
 			e.printStackTrace();
 		}
 	}

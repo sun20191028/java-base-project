@@ -56,8 +56,8 @@ public class ServerAcceptThread extends Thread{
 			sc.configureBlocking(false);
 			System.out.println("站点 【" + sc.getRemoteAddress() + " : " + sc.socket().getPort() + "】上线");//ip都是本机，所以外加服务端对应端口
 			GlobalVariable.mapSocketChannel.put(sc.socket().getPort(), wrapper);
-			GlobalVariable.socketChannelQueue.add(sc);
-//			sc.register(rwSelector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);//selector 不能进行并发的处理。不能一个线程在注册，一个线程在监听移除
+//			GlobalVariable.socketChannelQueue.add(sc);//selector 可以进行并发的处理。一个线程在注册，一个线程在监听移除
+			sc.register(GlobalVariable.rwSelector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);
 			
 			sk.interestOps(SelectionKey.OP_ACCEPT);//ServerSocketChannel 对应的 SelectionKey 准备下一次接收
 			

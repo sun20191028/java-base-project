@@ -1,4 +1,4 @@
-package com.base.xml.simpleAPIForXml;
+package com.base.basic.faceObject.extendsTest;
 
 public class Father {
 	
